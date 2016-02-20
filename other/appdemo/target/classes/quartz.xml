@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd" >
+	
+	<!-- 属性文件2s调度 -->
+	<bean id="secondsQuartz"
+		class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass">
+			<value>com.maker.app.quartz.SecondsQuartz</value>
+		</property>
+	</bean>
+	
+	<!-- ip请求次数调度 -->
+	<bean id="IpRequestNumQuartz"
+		class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass">
+			<value>com.maker.app.quartz.IpRequestNumQuartz</value>
+		</property>
+	</bean>
+	
+	<!-- 访问日志调度 -->
+	<bean id="appVisitLogQuartz"
+		class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass">
+			<value>com.maker.app.quartz.AppVisitLogQuartz</value>
+		</property>
+	</bean>
+	
+	<!--  /////////////////分割线/////////////////// -->
+	
+	<!-- 每2秒钟调度程序 -->
+	<bean id="twoSecondTrigger"
+		class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail">
+			<ref bean="secondsQuartz" />
+		</property>
+		<property name="cronExpression">
+			<value>0/2 * * * * ?</value>
+		</property>
+	</bean>
+	
+	<!-- ip请求次数调度 -->
+	<bean id="IpRequestNumTrigger"
+		class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail">
+			<ref bean="IpRequestNumQuartz" />
+		</property>
+		<property name="cronExpression">
+			<value>0 0/15 * * * ?</value>
+		</property>
+	</bean>
+	
+	<!-- 每30分钟调度程序 -->
+	<bean id="appVisitLogTrigger"
+		class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail">
+			<ref bean="appVisitLogQuartz" />
+		</property>
+		<property name="cronExpression">
+			<value>0 0/30 * * * ?</value>
+		</property>
+	</bean>
+	
+	<!-- 调度工厂类 -->
+	<bean id="schedulerFactory" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="twoSecondTrigger"/>
+				<ref bean="IpRequestNumTrigger"/>
+				<ref bean="appVisitLogTrigger"/>
+			</list>
+		</property>
+	</bean>
+</beans>

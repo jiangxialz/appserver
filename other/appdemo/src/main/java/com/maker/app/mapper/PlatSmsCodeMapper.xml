@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.maker.app.mapper.PlatSmsCodeMapper" > 
+<!-- Result Map-->
+ <resultMap id="BaseResultMap" type="com.maker.app.entity.PlatSmsCode" >
+ 	<result column="id" property="id" javaType="int" jdbcType="INTEGER"/>
+ 	<result column="user_id" property="userId" javaType="int" jdbcType="INTEGER"/>
+ 	<result column="mobile" property="mobile" javaType="String" jdbcType="VARCHAR"/>
+ 	<result column="sms_code" property="smsCode" javaType="String" jdbcType="VARCHAR"/>
+ 	<result column="create_time" property="createTime" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP"/>
+ 	<result column="expire_time" property="expireTime" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP"/>
+ 	<result column="is_use" property="isUse" javaType="boolean" jdbcType="BIT"/>
+ 	<result column="use_time" property="useTime" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP"/>
+ 	<result column="use_key" property="useKey" javaType="String" jdbcType="VARCHAR"/>
+ 	<result column="remark" property="remark" javaType="String" jdbcType="VARCHAR"/>
+  </resultMap>
+
+<!-- plat_sms_code table all fields -->
+<sql id="Base_Column_List" >
+	 id,user_id,mobile,sms_code,create_time,expire_time,is_use,use_time,use_key,remark
+</sql>
+
+<!-- 插入记录 -->
+<insert id="insert" parameterType="com.maker.app.entity.PlatSmsCode" useGeneratedKeys="true" keyProperty="id">
+  insert into plat_sms_code(user_id,mobile,sms_code,create_time,expire_time,is_use,use_time,use_key,remark)
+ values(#{userId},#{mobile},#{smsCode},#{createTime},#{expireTime},#{isUse},#{useTime},#{useKey},#{remark})
+</insert>
+
+<!-- 根据条件获取短信记录 -->
+<select id="getPlatSmsCode" resultMap="BaseResultMap">
+	select <include refid="Base_Column_List" />
+	from plat_sms_code
+	where is_use = #{isUse}
+	and user_id = #{userId}
+	and mobile = #{mobile}
+	and sms_code = #{smsCode}
+</select>
+
+<!-- 更新记录 -->
+<update id="update">
+	update plat_sms_code 
+	set user_id = #{userId}, 
+		is_use = #{isUse}, 
+		use_time = #{useTime} 
+	where id = #{id}
+</update>
+
+</mapper>   

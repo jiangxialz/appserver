@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<app-interfaces>
+	
+	<interface name="getSmsCode">
+		<description><![CDATA[获取手机短信验证码]]></description>
+		<parameters>
+			<param name="mobile" type="MOBILE" required="true"/>
+		</parameters>
+		<result datatype="json">
+			<status>OK|ERROR</status>
+			<retCode valuetype="int" />
+			<message valuetype="String" />
+		</result>
+	</interface>
+	
+	<!-- 
+	<interface name="mobileRegister">
+		<description><![CDATA[手机号码注册]]></description>
+		<parameters>
+			<param name="mobile" type="MOBILE" required="true"/>
+			<param name="smsCode" type="STRING" required="true"/>
+			<param name="pw" type="STRING" required="true"/>
+			<param name="repeatPw" type="STRING" required="true"/>
+		</parameters>
+		<result datatype="json">
+			<status>OK|ERROR</status>
+			<retCode valuetype="int" />
+			<message valuetype="String" />
+		</result>
+	</interface>
+	
+	<interface name="logout" need-auth="true">
+		<description><![CDATA[ 退出、注销 ]]></description>
+		<parameters>
+			<param name="_sessionid" type="STRING" required="true"/>
+		</parameters>
+		<result datatype="json">
+			<status>OK|ERROR</status>
+			<retCode valuetype="int" />
+			<message valuetype="String" />
+		</result>
+	</interface>
+  -->	
+	 
+</app-interfaces>

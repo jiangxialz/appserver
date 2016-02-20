@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<app-interfaces>	 
+	
+	<!-- 获取手机验证码 -->
+	<interface name="getSmsCode" class="platSmsCodeService" method="getSmsCode" />
+	
+</app-interfaces>
