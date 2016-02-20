@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<!-- 指定Web应用的默认编码集，相当于调用HttpServletRequest的setCharacterEncoding方法 -->
+	<constant name="struts.i18n.encoding" value="UTF-8" />
+	<!-- 指定Struts 2默认的ObjectFactory Bean，该属性默认值是spring -->
+	<constant name="struts.objectFactory" value="spring" />
+	<!-- 该属性指定整合Spring框架时，是否缓存Bean实例，该属性只允许使用true和 false两个属性值，它的默认值是true。通常不建议修改该属性值 -->
+	<constant name="struts.objectFactory.spring.useClassCache"
+		value="true" />
+	<!-- 指定spring框架的装配模式装配方式有: name, type, auto, and constructor (name 是默认装配模式) -->
+	<constant name="struts.objectFactory.spring.autoWire" value="name" />
+	<!-- 该属性设置Struts 2是否支持动态方法调用，该属性的默认值是true。如果需要关闭动态方法调用，则可设置该属性为false。 -->
+	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
+	<!-- 设置浏览器是否缓存静态内容，默认值为true，开发阶段最好false -->
+	<constant name="struts.serve.static.browserCache " value="false" />
+	<!-- 当struts的配置文件修改后，系统是否自动重新加载该文件，默认值为false，开发阶段最好true -->
+	<constant name="struts.configuration.xml.reload" value="true" />
+	<!-- 访问静态方法 -->
+	<constant name="struts.ognl.allowStaticMethodAccess" value="true" />
+	<!-- 开发模式，发布时要设置为false -->
+	<constant name="struts.devMode" value="false" />
+	<constant name="struts.ui.theme" value="simple" />
+	
+	<!-- 指定jsp文件所在的目录地址 
+    <constant name="struts.convention.result.path" value="/WEB-INF/content/" />
+	-->
+	
+	<!-- 用于配置类名后缀，默认为Action，设置后，Struts2只会去找这种后缀名的类做映射 -->
+	<constant name="struts.convention.action.suffix" value="Action" />
+	<!-- 设置即使没有@Action注释，依然创建Action映射。默认值是false。因为Convention-Plugin是约定优于配置的风格，
+        	可以不通过注解根据预先的定义就能访问相应Action中的方法 -->
+	<constant name="struts.convention.action.mapAllMatches" value="true" />
+	<!-- 用于配置包名后缀。默认为action、actions、struts -->
+	<constant name="struts.convention.package.locators" value="action" />
+	<!-- 使用front转换器 -->
+	<constant name="struts.convention.default.parent.package" value="front" />
+	<!--    该 属性指定需要Struts 2处理的请求后缀，该属性的默认值是action，即 所有匹配*.action的请求都由Struts 2处理。如 果用户需要指定多个请求后缀，则多个后缀之间以英文逗号（，）隔开 -->   
+   	<constant name="struts.action.extension" value="3d" />   
+   	
+	<!-- 服务器指定一个临时的路径  否则会上传失败  D:/java/javaWEB/apache-tomcat-7.0.11/temp-->
+	<constant name="struts.multipart.saveDir" value="D:/worktool/apache-tomcat-7.0.29_myeclipse/webapps"/>
+	<constant name="struts.multipart.maxSize" value="30000000"></constant>
+		
+	<!-- 没找到action -->
+	<package name="default" extends="struts-default">
+	
+	    <interceptors>
+			
+	        <interceptor-stack name="secureDefaultStack">
+	            <interceptor-ref name="defaultStack">
+	                <param name="params.excludeParams">(.*\.|^|.*|\[(&#39;|"))(c|C)lass(\.|(&#39;|")]|\[).*,^dojo\..*,^struts\..*,^session\..*,^request\..*,^application\..*,^servlet(Request|Response)\..*,^parameters\..*,^action:.*,^method:.*</param>
+	            </interceptor-ref>
+	        </interceptor-stack>
+	    </interceptors>
+	
+	    <default-interceptor-ref name="secureDefaultStack" />
+	   
+	   <default-action-ref name="notFound" />
+		<action name="notFound" class="com.maker.app.action.NotFoundAction">
+			<result name="success">/404.jsp</result>
+			<result name="error">/404.jsp</result>
+			<result name="input">/404.jsp</result>
+		</action>
+		
+	</package>
+
+	<package name="base" extends="struts-default">
+	
+		<result-types>
+			<result-type name="json" class="org.apache.struts2.json.JSONResult">
+				<param name="ignoreHierarchy">false</param>
+				<param name="excludeProperties">locale</param>
+				<param name="excludeNullProperties">true</param>
+			</result-type>
+		</result-types>
+
+		<!-- 重新定义过滤器,配置方法级别的校验，注意如果改版本请从版本中取出struts-default.xml copy update -->
+		<interceptors>
+			<interceptor-stack name="defaultParentStack">
+				<interceptor-ref name="exception" />
+				<interceptor-ref name="alias" />
+				<interceptor-ref name="servletConfig" />
+				<interceptor-ref name="i18n" />
+				<interceptor-ref name="prepare" />
+				<interceptor-ref name="chain" />
+				<interceptor-ref name="scopedModelDriven" />
+				<interceptor-ref name="modelDriven" />
+				<interceptor-ref name="fileUpload" />
+				<interceptor-ref name="checkbox" />
+				<interceptor-ref name="multiselect" />
+				<interceptor-ref name="staticParams" />
+				<interceptor-ref name="actionMappingParams" />
+				<interceptor-ref name="params">
+					<param name="excludeParams">(.*\.|^|.*|\[(&#39;|"))(c|C)lass(\.|(&#39;|")]|\[).*,^dojo\..*,^struts\..*,^session\..*,^request\..*,^application\..*,^servlet(Request|Response)\..*,^parameters\..*,^action:.*,^method:.*</param>
+				</interceptor-ref>
+				<interceptor-ref name="conversionError" />
+				<interceptor-ref name="validation">
+					<param name="excludeMethods">input,back,cancel,browse</param>
+					<!-- 配置方法级别的校验 -->
+					<param name="validateAnnotatedMethodOnly">true</param>
+				</interceptor-ref>
+				<interceptor-ref name="workflow">
+					<param name="excludeMethods">input,back,cancel,browse</param>
+				</interceptor-ref>
+				<interceptor-ref name="debugging" />
+			</interceptor-stack>
+
+			<!-- The completeStack is here for backwards compatibility for applications 
+				that still refer to the defaultStack by the old name -->
+			<interceptor-stack name="completeStack">
+				<interceptor-ref name="defaultStack" />
+			</interceptor-stack>
+
+			<!-- Sample execute and wait stack. Note: execAndWait should always be 
+				the *last* interceptor. -->
+			<interceptor-stack name="executeAndWaitStack">
+				<interceptor-ref name="execAndWait">
+					<param name="excludeMethods">input,back,cancel</param>
+				</interceptor-ref>
+				<interceptor-ref name="defaultStack" />
+				<interceptor-ref name="execAndWait">
+					<param name="excludeMethods">input,back,cancel</param>
+				</interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="defaultParentStack" />
+
+	</package>
+	
+	<!-- 前端默认包 -->
+	<package name="front" extends="default">
+
+		<result-types>
+			<result-type name="json" class="org.apache.struts2.json.JSONResult">
+				<param name="ignoreHierarchy">false</param>
+				<param name="excludeProperties">locale,texts,errorMessages,errors,fieldErrors</param>
+				<param name="excludeNullProperties">true</param>
+			</result-type>
+		</result-types>
+
+	</package>
+
+</struts>

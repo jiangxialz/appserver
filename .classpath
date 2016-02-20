@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" output="target/classes" path="src/main/java"/>
+	<classpathentry excluding="**" kind="src" output="target/classes" path="src/main/resources"/>
+	<classpathentry kind="src" output="target/test-classes" path="src/test/java"/>
+	<classpathentry excluding="**" kind="src" output="target/test-classes" path="src/test/resources"/>
+	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/cglib-2.2.2.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/commons-dbcp-1.4.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/mybatis-3.1.1.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/mybatis-spring-1.1.1.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/mysql-connector-java-5.0.0-beta-bin.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/druid-1.0.1.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/jackson-all-1.9.11.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/maker-common.jar"/>
+	<classpathentry kind="output" path="src/main/webapp/src/main/java"/>
+</classpath>
