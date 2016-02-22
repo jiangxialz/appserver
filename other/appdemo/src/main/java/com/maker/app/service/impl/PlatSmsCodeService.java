@@ -6,6 +6,7 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import com.maker.app.action.ResponseVo;
 import com.maker.app.common.AppInterface;
@@ -38,7 +39,12 @@ public class PlatSmsCodeService implements IPlatSmsCodeService{
 	/**
 	 * 获取短信验证码
 	 * 先保存验证码记录表，如果失败，则不发送短信验证码
+	 * tx事务或注解事务，二者选其一 ，如下
+                     当使用tx配置事务时，在service层方法的catch语句中增加：TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();语句，手动回滚，这样上层就无需去处理异常
+                     当使用@Transactional注解事务时，在service的方法中不使用try catch 或者在catch中最后加上throw new runtimeexcetpion()，这样程序异常时才能被捕获进而回滚
+     *
 	 */
+//	@Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class) 
 	@Override
 	public String getSmsCode(AppInterface ai) {
 		
@@ -71,6 +77,11 @@ public class PlatSmsCodeService implements IPlatSmsCodeService{
 		    	throw new AppException(MessageUtils.getText("front.get.smsCode.fail"));
 		    }
 		    
+		    /**
+		     *  故意发生异常，验证是否回滚
+		     */
+//		    Integer.valueOf("bbbb");
+		    
 		    responseVo.setMessage(MessageUtils.getText("front.operation.success"));
 		    
 		} catch (AppException appEx) {
@@ -81,6 +92,9 @@ public class PlatSmsCodeService implements IPlatSmsCodeService{
 	    	
 		} catch (Exception e) {
 			logger.error("系统异常：" + ExceptionUtils.getStackTrace(e));
+			// 手动回滚
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+			
 			responseVo.setStatus(AppConstants.STATUS_ERROR);
 			responseVo.setRetCode(RetCode.ERROR_SYSTEM);
 			responseVo.setMessage(MessageUtils.getText("front.operation.fail"));

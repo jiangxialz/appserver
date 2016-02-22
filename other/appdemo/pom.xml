@@ -9,9 +9,8 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<springframework.version>3.2.0.RELEASE</springframework.version>
-		 <!-- mybatis版本号 
-        <mybatis.version>3.2.4</mybatis.version>
-        -->
+		 <!-- mybatis版本号 -->
+        <mybatis.version>3.3.0</mybatis.version>
 		<struts2.version>2.3.16.2</struts2.version>
 		<cxf.version>2.2.12</cxf.version>
 		<jdk.version>1.7</jdk.version>
@@ -97,7 +96,7 @@
 			<version>${springframework.version}</version>
 		</dependency>
 		
-		<!-- mybatis核心包 
+		<!-- mybatis核心包 -->
         <dependency>
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis</artifactId>
@@ -106,15 +105,15 @@
         <dependency>
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis-spring</artifactId>
-            <version>1.2.2</version>
+            <version>1.2.3</version>
         </dependency>
         
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.29</version>
+            <version>5.1.38</version>
         </dependency>
-	    -->
+	    
 	    
 		<!-- struts2 -->
 		<dependency>
@@ -208,7 +207,34 @@
 			<version>1.9.2</version>
 		</dependency>
 		
+		<dependency>
+		    <groupId>cglib</groupId>
+		    <artifactId>cglib</artifactId>
+		    <version>3.2.0</version>
+		</dependency>
+    
+        <dependency>
+		    <groupId>commons-dbcp</groupId>
+		    <artifactId>commons-dbcp</artifactId>
+		    <version>1.4</version>
+        </dependency>
+        
+        <dependency>
+		    <groupId>com.alibaba</groupId>
+		    <artifactId>druid</artifactId>
+		    <version>1.0.15</version>
+        </dependency>
+        
+		
 		<!-- 非maven管理的jar -->
+        <dependency>
+            <groupId>jackson</groupId>
+            <artifactId>jackson-all</artifactId>
+            <version>1.9.11</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/src/main/webapp/WEB-INF/lib/jackson-all-1.9.11.jar</systemPath>
+        </dependency>
+        
 		<dependency>
 			<groupId>com.wonder</groupId>
 			<artifactId>common</artifactId>
@@ -216,6 +242,8 @@
 			<scope>system</scope>
 			<systemPath>${basedir}/src/main/webapp/WEB-INF/lib/maker-common.jar</systemPath>
 		</dependency>
+		
+	   <!-- 
 		<dependency>
 			<groupId>org.mybatis</groupId>
 			<artifactId>mybatis</artifactId>
@@ -245,7 +273,7 @@
 			<scope>system</scope>
 			<systemPath>${basedir}/src/main/webapp/WEB-INF/lib/commons-dbcp-1.4.jar</systemPath>
 		</dependency>
-		
+	
 		<dependency>
 			<groupId>cglib</groupId>
 			<artifactId>cglib</artifactId>
@@ -253,15 +281,7 @@
 			<scope>system</scope>
 			<systemPath>${basedir}/src/main/webapp/WEB-INF/lib/cglib-2.2.2.jar</systemPath>
 		</dependency>
-		
-		<dependency>
-			<groupId>jackson</groupId>
-			<artifactId>jackson-all</artifactId>
-			<version>1.9.11</version>
-			<scope>system</scope>
-			<systemPath>${basedir}/src/main/webapp/WEB-INF/lib/jackson-all-1.9.11.jar</systemPath>
-		</dependency>
-		
+		 
 		<dependency>
 		    <groupId>com.alibaba</groupId>
 		    <artifactId>druid</artifactId>
@@ -269,7 +289,7 @@
 		    <scope>system</scope>
 			<systemPath>${basedir}/src/main/webapp/WEB-INF/lib/druid-1.0.1.jar</systemPath>
 		</dependency>
-
+        -->
 		
 	</dependencies>
 	
@@ -373,7 +393,12 @@
 	      <id>central</id>  
 	      <name>Maven Repository Switchboard</name>  
 	      <url>http://repo2.maven.org/maven2</url>  
-	    </repository>  
+	    </repository> 
+        <repository>  
+          <id>central</id>  
+          <name>Maven Repository Switchboard</name>  
+          <url>http://repo2.maven.org/maven2</url>  
+        </repository>  
   </repositories> 
 	
 <!-- 修改中央库 
