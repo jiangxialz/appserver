@@ -12,9 +12,10 @@
     http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
             ">
 
-	<!-- spring 注解配置 -->
+	<!-- 开启注解处理器 -->
 	<context:annotation-config />
 	
+	<!-- 注解需要扫描的包 -->
 	<context:component-scan base-package="com.maker.app" />
 	
     <!-- properties 文件注入 -->
@@ -71,12 +72,41 @@
 		<property name="mapperLocations" value="classpath:com/maker/app/mapper/*Mapper.xml"/>
 	</bean>
 	
-		<!-- 配置声明式事务管理器 -->
+	<!-- 
+	   tx事务或注解事务，二者选其一 （见com.maker.app.service.impl.PlatSmsCodeService.getSmsCode()方法处理！）
+	         当使用tx配置事务时，在service层方法的catch语句中增加：TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();语句，手动回滚，这样上层就无需去处理异常
+	         当使用@Transactional注解事务时，在service的方法中不使用try catch 或者在catch中最后加上throw new runtimeexcetpion()，这样程序异常时才能被捕获进而回滚
+	-->
+	
+	<!-- 配置事务管理器 -->
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource"/>
-	</bean>    
+	</bean>
 	
-	<!-- 配置 Annotation 驱动，扫描@Transactional注解的类定义事务  -->
+	<!--配置tx的aop注解 -->
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <!-- 对select/find/search等开头的方法要求只读事务  --> 
+            <tx:method name="select*" propagation="REQUIRED" read-only="true"/> 
+            <tx:method name="find*" propagation="REQUIRED" read-only="true"/>  
+            <tx:method name="search*" propagation="REQUIRED" read-only="true"/>  
+            <tx:method name="read*" propagation="REQUIRED" read-only="true"/>  
+            <tx:method name="count*" propagation="REQUIRED" read-only="true"/>  
+            <tx:method name="list*" propagation="REQUIRED" read-only="true"/>  
+            <!-- 对其它方法要求事务 -->  
+            <tx:method name="*" propagation="REQUIRED" rollback-for="RuntimeException"/>  
+        </tx:attributes>
+    </tx:advice>
+    <!-- 事务aop -->
+    <aop:config>
+      <aop:pointcut id="allManagerMethod"
+       expression="execution(* com.maker.app.service.impl.*.*(..))" />
+      <aop:advisor pointcut-ref="allManagerMethod"
+       advice-ref="txAdvice" />
+    </aop:config>    
+	
+	<!-- 配置 Annotation 驱动，扫描@Transactional注解的类定义事务(注解事务)  
 	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
+	-->
 	 
 </beans>

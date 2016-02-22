@@ -16,14 +16,12 @@ import com.maker.app.common.AppInterface;
 import com.maker.app.common.Global;
 import com.maker.app.common.SysCache;
 import com.maker.app.constant.AppConstants;
-import com.maker.app.constant.IpRequestNumConstant;
 import com.maker.app.constant.RetCode;
 import com.maker.app.entity.AppSession;
 import com.maker.app.exception.AppException;
 import com.maker.app.util.JSONUtil;
 import com.maker.app.util.MessageUtils;
 import com.maker.app.util.business.AppVisitLogUtil;
-import com.maker.app.util.business.IpRequestNumUtil;
 
 /**
  * 全局对外请求http处理类
@@ -45,15 +43,6 @@ public class GlobalExternalReqAction extends FrontBaseAction{
 		ResponseVo responseVo = new ResponseVo();
 		
 		try {
-			
-			String ip = super.getRequestIp();
-			//控制IP请求的频率
-			IpRequestNumUtil.verifyRequest(ip, IpRequestNumConstant.GLOBALREQ);
-			// 签名验证
-			/*if(!verifySign(request)){
-				throw new AppException(MessageUtils.getText("global.req.sign.verify.fail"));
-			}*/
-			
 			long start = System.currentTimeMillis();
 			
 			//得到请求的action
@@ -119,23 +108,6 @@ public class GlobalExternalReqAction extends FrontBaseAction{
 		}
 		return null;
 	}
-	
-	
-	
-	/**
-	 * 签名验证
-	 * @param request
-	 * @return
-	 */
-	/*public static boolean verifySign(HttpServletRequest request){
-		boolean flag = true;
-		Map<String, String> requestMap = HttpReceiveUtil.getParametersHashMap(request);
-		String MD5SignData = MD5SortUtil.signValue(requestMap, "sign", true, null);
-		if(!MD5SignData.equals(request.getParameter("sign"))){
-			flag = false;
-		}
-		return flag;
-	}*/
 	
 	/**
 	 * 从返回的json数据得到错误消息
