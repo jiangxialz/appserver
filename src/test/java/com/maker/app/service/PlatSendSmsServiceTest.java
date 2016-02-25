@@ -12,7 +12,7 @@ public class PlatSendSmsServiceTest extends BaseJunitCase{
 	@Test
 	public void testSendSms(){
 		
-		String reqUrlStr = "http://localhost/appdemo/front/global-external-req.3d?action=getSmsCode";
+		String reqUrlStr = "http://localhost/appserver/front/global-external-req.3d?action=getSmsCode";
 		HashMap<String, String> params = new HashMap<String, String>();
 		params.put("mobile", "13632672548");
 		try {

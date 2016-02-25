@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-module
   type="WEB"
-  name="appdemo"
+  name="appserver"
   id="myeclipse.1417168041173"
-  context-root="/appdemo"
+  context-root="/appserver"
   j2ee-spec="6.0"
-  archive="appdemo.war">
+  archive="appserver.war">
   <attributes>
     <attribute name="webrootdir" value="src/main/webapp" />
   </attributes>

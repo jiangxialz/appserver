@@ -4,7 +4,7 @@
 
 	<!-- ConsoleAppender 将日志打印到控制台（开发中使用这个） -->
 	<appender class="org.apache.log4j.ConsoleAppender" name="ConsoleAppender">
-		<param name="Encoding" value="GBK" /> 
+		<param name="Encoding" value="UTF-8" /> 
 		<layout class="org.apache.log4j.PatternLayout">
 			<param name="ConversionPattern" value="%d %-5p %-5c{3}:%L -> %m%n" />
 		</layout>
