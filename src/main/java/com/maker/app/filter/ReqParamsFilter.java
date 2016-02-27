@@ -48,9 +48,13 @@ public class ReqParamsFilter extends HttpServlet implements Filter {
         		}else{
         		    logger.info("~~~~~~~~~ (POST) url="+reqUrl+"?"+reqKeyValueParams);
         		}
-    		}else{ // xml/json 参数数据
-    		    String reqTextParam = HttpReceiveUtil.getPostDataByStream(httpRequest);
-    	        logger.info("~~~~~~~~~ (POST) url= "+reqUrl+"\r\n" + reqTextParam);
+    		}else{
+    			/**
+    		     * xml/json 参数数据
+    		     * 此处不能接收数据流参数，否则对应的真正的处理类获取不到任何参数（数据流只能获取一次！！！）
+    		     * String reqTextParam = HttpReceiveUtil.getPostDataByStream(httpRequest);
+    	         * logger.info("~~~~~~~~~ (POST) url= "+reqUrl+"\r\n" + reqTextParam);
+    		     */
     		}
 		}
 		chain.doFilter(request, response);
