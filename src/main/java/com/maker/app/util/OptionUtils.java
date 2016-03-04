@@ -25,7 +25,7 @@ public class OptionUtils {
 	
 	static{
 		try{
-			String confFileUrl = OptionUtils.class.getResource("/options.properties").getPath();
+			String confFileUrl = OptionUtils.class.getResource("/conf/options.properties").getPath();
 			File file = new File(confFileUrl);
 			optionFileLastModifyTime = file.lastModified();
 			InputStream is = new FileInputStream(file);
@@ -38,7 +38,7 @@ public class OptionUtils {
 	
 	public static void reload(){
 		try{
-			String confFileUrl = OptionUtils.class.getResource("/options.properties").getPath();
+			String confFileUrl = OptionUtils.class.getResource("/conf/options.properties").getPath();
 			File file = new File(confFileUrl);
 			if(optionFileLastModifyTime != file.lastModified()){
 				log.info("reload options.properties, file.lastModified() = " + file.lastModified());

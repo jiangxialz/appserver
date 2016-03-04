@@ -19,7 +19,7 @@
 	<context:component-scan base-package="com.maker.app" />
 	
     <!-- properties 文件注入 -->
-    <context:property-placeholder location="classpath:jdbc.properties"/>
+    <context:property-placeholder location="classpath:conf/jdbc.properties"/>
 	
 	<!-- 导入quartz配置 -->
 	<import resource="quartz.xml" />

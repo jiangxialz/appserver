@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+	<!-- ConsoleAppender 将日志打印到控制台（开发中使用这个） -->
+	<appender class="org.apache.log4j.ConsoleAppender" name="ConsoleAppender">
+		<param name="Encoding" value="GBK" /> 
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d %-5p %-5c{3}:%L -> %m%n" />
+		</layout>
+	</appender>
+	
+	<!-- DailyRollingFileAppender 每日记录日志文件（一般部署环境中应用） -->
+	<appender class="org.apache.log4j.DailyRollingFileAppender" name="DailyRollingFileAppender">
+		<param name="DatePattern" value="'.'yyyy-MM-dd'.log'" />
+		<param name="File" value="/log/appserver/log.log" />
+		<param name="Encoding" value="UTF-8" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d %-5p %-5c{3}:%L -> %m%n" />
+		</layout>
+	</appender>
+	
+	<category name="java.sql">  
+        <priority value="debug" />  
+    </category>  
+    <category name="com.ibatis">  
+        <priority value="debug" />  
+    </category>  
+
+	<root>
+		<level value="INFO" />
+		
+		<!-- 开发环境中推荐使用 ConsoleAppender 
+		<appender-ref ref="ConsoleAppender" />
+		-->
+		
+		<!-- 部署环境中推荐使用DailyRollingFileAppender -->
+		<appender-ref ref="DailyRollingFileAppender" />
+		
+	</root>
+	
+</log4j:configuration>

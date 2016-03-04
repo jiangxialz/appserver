@@ -2,9 +2,10 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.maker</groupId>
   <artifactId>app</artifactId>
-  <version>0.0.1</version>
+  <version>0.0.1-SNAPSHOT</version>
   <packaging>war</packaging>
   
+   
   <!-- 定义常量 -->
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -14,6 +15,9 @@
 		<struts2.version>2.3.16.2</struts2.version>
 		<cxf.version>2.2.12</cxf.version>
 		<jdk.version>1.7</jdk.version>
+		
+		<!-- 打包环境 -->
+		<env>test</env>
 	</properties>
 
 	<dependencies>
@@ -243,134 +247,50 @@
 			<systemPath>${basedir}/src/main/webapp/WEB-INF/lib/maker-common.jar</systemPath>
 		</dependency>
 		
-	   <!-- 
-		<dependency>
-			<groupId>org.mybatis</groupId>
-			<artifactId>mybatis</artifactId>
-			<version>3.1.1</version>
-			<scope>system</scope>
-			<systemPath>${basedir}/src/main/webapp/WEB-INF/lib/mybatis-3.1.1.jar</systemPath>
-		</dependency>
-		<dependency>
-			<groupId>org.mybatis</groupId>
-			<artifactId>mybatis-spring</artifactId>
-			<version>1.1.1</version>
-			<scope>system</scope>
-			<systemPath>${basedir}/src/main/webapp/WEB-INF/lib/mybatis-spring-1.1.1.jar</systemPath>
-		</dependency>
-		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<version>5.0.0-beta</version>
-			<scope>system</scope>
-			<systemPath>${basedir}/src/main/webapp/WEB-INF/lib/mysql-connector-java-5.0.0-beta-bin.jar</systemPath>
-		</dependency>
-		
-		<dependency>
-			<groupId>dbcp</groupId>
-			<artifactId>commons-dbcp</artifactId>
-			<version>1.4</version>
-			<scope>system</scope>
-			<systemPath>${basedir}/src/main/webapp/WEB-INF/lib/commons-dbcp-1.4.jar</systemPath>
-		</dependency>
-	
-		<dependency>
-			<groupId>cglib</groupId>
-			<artifactId>cglib</artifactId>
-			<version>2.2.2</version>
-			<scope>system</scope>
-			<systemPath>${basedir}/src/main/webapp/WEB-INF/lib/cglib-2.2.2.jar</systemPath>
-		</dependency>
-		 
-		<dependency>
-		    <groupId>com.alibaba</groupId>
-		    <artifactId>druid</artifactId>
-		    <version>1.0.1</version>
-		    <scope>system</scope>
-			<systemPath>${basedir}/src/main/webapp/WEB-INF/lib/druid-1.0.1.jar</systemPath>
-		</dependency>
-        -->
-		
 	</dependencies>
 	
+	<!-- 配置打包环境 -->
+    <profiles>
+        <profile>
+            <id>test</id>
+            <properties>
+                <env>test</env>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault> <!-- true代表默认激活 -->
+            </activation>
+        </profile>
+        <profile>
+            <id>prod</id>
+            <properties>
+                <env>prod</env>
+            </properties>
+        </profile>
+    </profiles>
+	
 	<build>
-		<resources>
-			<resource>
-				<directory>src/main/java</directory>
-				<!-- 包含 -->
-				<includes>
-					<include>**/*.xml</include>
-				</includes>
-			</resource>
-			<resource>
-				<directory>src/main/resources</directory>
-				<!-- 包含 -->
-				<includes>
-					<include>**/*</include>
-				</includes>
-			</resource>
-		</resources>
-		
-		
 		<plugins>
 		
-			<!-- Compiler 插件, 设定JDK版本 -->
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.1</version>
-				<configuration>
-					<source>${jdk.version}</source>
-					<target>${jdk.version}</target>
-				</configuration>
-			</plugin>
-
-			<!-- war 打包插件, 设定war包名称不带版本号 -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-war-plugin</artifactId>
-				<version>2.3</version>
-				<configuration>
-					<warName>${project.artifactId}</warName>
-				</configuration>
-			</plugin>
-
-			<!-- resource插件 -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-resources-plugin</artifactId>
-				<version>2.6</version>
-			</plugin>
-
-			<!-- dependency插件 -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-dependency-plugin</artifactId>
-				<version>2.7</version>
-			</plugin>
-			
-			<plugin>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<configuration>
-					<appendAssemblyId>false</appendAssemblyId>
-					<finalName>makerapp</finalName>
-					<!-- 输出目录,linux填写具体地址 /usr/xxx windows可以填写具体盘符地址，绝对路径如:c:\ccc -->
-					<!-- <outputDirectory>c:/ccc</outputDirectory> -->
-					<descriptors>
-						<descriptor>src/main/resources/assembly.xml</descriptor>
-					</descriptors>
-				</configuration>
-				<executions>
-					<execution>
-						<id>make-assembly</id>
-						<phase>package</phase>
-						<goals>
-							<goal>single</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			
+		      <artifactId>maven-assembly-plugin</artifactId> <!-- 官网给出的配置，没有配置 groupId，这里也不配置 -->
+		      <executions>
+		        <execution>
+		          <id>make-assembly</id> <!-- id 标识，命名随意 -->
+		          <phase>package</phase> <!-- 绑定到 package 生命周期阶段 -->
+		          <goals>
+		            <goal>single</goal>  <!-- 在 package 生命周期阶段仅执行一次 -->
+		          </goals>
+		        </execution>
+		      </executions>
+		      <configuration>
+		      	<finalName>appserver</finalName>
+		        <descriptors>
+		          <descriptor>assembly.xml</descriptor> <!-- 自定义打包的配置文件 -->
+		        </descriptors>
+		        <appendAssemblyId>false</appendAssemblyId> <!-- 设为 flase, 防止 WAR 包名加入 assembly.xml 中的 id -->
+		      </configuration>
+		    </plugin>
+			 
 		</plugins>
 	</build>
 
@@ -394,30 +314,6 @@
 	      <name>Maven Repository Switchboard</name>  
 	      <url>http://repo2.maven.org/maven2</url>  
 	    </repository> 
-        <repository>  
-          <id>central</id>  
-          <name>Maven Repository Switchboard</name>  
-          <url>http://repo2.maven.org/maven2</url>  
-        </repository>  
   </repositories> 
 	
-<!-- 修改中央库 
-
-  <repositories>
-    <repository>
-      <id>maven2-repository.dev.java.net</id>
-      <name>Java.net Maven 2 Repository</name>
-      <url>http://download.java.net/maven/2</url>
-    </repository>
-  </repositories>  
-  <pluginRepositories>
-    <pluginRepository>
-      <id>maven2-repository.dev.java.net</id>
-      <name>Java.net Maven 2 Repository</name>
-      <url>http://download.java.net/maven/2</url>
-    </pluginRepository>
-  </pluginRepositories>
-  
-  -->
-  
 </project>
