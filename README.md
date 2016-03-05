@@ -10,7 +10,7 @@ appserver运行步骤：
 # 建议断点GlobalExternalReqAction.java文件，熟悉执行过程
 
 appserver打包部署：
-1、修改assembly.xml中的formats参数，自定义打包文件格式，一般为zip或者war
+1、修改assembly.xml中的formats参数，自定义打包文件格式，一般为zip或者war，关于assembly，请参考：http://maven.apache.org/plugins/maven-assembly-plugin/assembly.html
 2、选择项目 --> Run As --> Run Configurations --> Goals 设置为-Ptest clean assembly:assembly
 
 #备注：默认打包为测试环境配置文件（见pom中的<activeByDefault>节点），当需要打包为正式环境时配置为-Pprod clean assembly:assembly

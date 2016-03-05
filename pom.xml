@@ -269,8 +269,23 @@
     </profiles>
 	
 	<build>
+	
+		<resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.xml</include> <!-- 主要针对mybatis的mapper文件 -->
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*</include>
+                </includes>
+            </resource>
+        </resources>
+        
 		<plugins>
-		
 			<plugin>
 		      <artifactId>maven-assembly-plugin</artifactId> <!-- 官网给出的配置，没有配置 groupId，这里也不配置 -->
 		      <executions>
@@ -290,8 +305,8 @@
 		        <appendAssemblyId>false</appendAssemblyId> <!-- 设为 flase, 防止 WAR 包名加入 assembly.xml 中的 id -->
 		      </configuration>
 		    </plugin>
-			 
 		</plugins>
+		
 	</build>
 
 
