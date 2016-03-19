@@ -1,6 +1,9 @@
-#Fri Nov 28 18:02:59 CST 2014
 eclipse.preferences.version=1
+encoding//env/prod/prop/options.properties=UTF-8
+encoding//env/test/prop/jdbc.properties=UTF-8
+encoding//env/test/prop/options.properties=UTF-8
 encoding//src/main/java=UTF-8
 encoding//src/main/resources=UTF-8
+encoding//src/main/resources/conf/options.properties=UTF-8
 encoding//src/test/java=UTF-8
 encoding//src/test/resources=UTF-8
