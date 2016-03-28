@@ -34,7 +34,7 @@ public class IpRequestNumUtil {
 		 // http请求次数控制
 		 if(operationType.equals(IpRequestNumConstant.GLOBALREQ)){
 			 // 限制次数
-			 int limitNum = Integer.valueOf(OptionUtils.getDefaultOption("global.req.limit.num", "300"));
+			 int limitNum = OptionUtils.getIntOption("global.req.limit.num", 300);
 			 if(num > limitNum){
 				 throw new AppException(MessageUtils.getText("global.req.ip.num.abnormal"));
 			 }

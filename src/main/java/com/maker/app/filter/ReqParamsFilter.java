@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 
-import com.maker.app.constant.AppConstants;
+import com.maker.app.util.OptionUtils;
 import com.wonder.http.HttpReceiveUtil;
 
 /**
@@ -36,8 +36,10 @@ public class ReqParamsFilter extends HttpServlet implements Filter {
 		httpRequest.setCharacterEncoding("UTF-8");
 //      String ua = httpRequest.getHeader("User-Agent");
 		
-		// 测试环境进行打印log，外网环境关闭
-		if(AppConstants.IS_TEST_ENV){
+		/**
+         *  测试环境进行打印log，外网环境关闭
+         */
+        if(OptionUtils.getBooleanOption("sysconfig.current.env.isTest")){
     		String reqUrl = httpRequest.getRequestURI();
     		// key/value 参数数据
     		String reqKeyValueParams = HttpReceiveUtil.getParameters(httpRequest);

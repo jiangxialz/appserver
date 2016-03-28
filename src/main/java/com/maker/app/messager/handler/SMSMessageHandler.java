@@ -27,12 +27,12 @@ public class SMSMessageHandler implements MessageHandler {
 		if (StringUtils.isNotBlank(mobile)
 				&& StringUtils.isNotBlank(smsContent)) {
 			HashMap<String, String> params = new HashMap<String, String>();
-			params.put("account", OptionUtils.getOption("account"));
-			params.put("password", OptionUtils.getOption("password"));
+			params.put("account", OptionUtils.getStringOption("account"));
+			params.put("password", OptionUtils.getStringOption("password"));
 			params.put("mobile", mobile);
 			params.put("content", smsContent);
 			try {
-				String submitResult = HttpClientSendUtil.postRequest(OptionUtils.getOption("smsUrl"),params, "http");
+				String submitResult = HttpClientSendUtil.postRequest(OptionUtils.getStringOption("smsUrl"),params, "http");
 				Document doc = DocumentHelper.parseText(submitResult);
 				Element root = doc.getRootElement();
 				

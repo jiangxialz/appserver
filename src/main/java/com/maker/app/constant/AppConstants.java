@@ -9,10 +9,8 @@ package com.maker.app.constant;
 public class AppConstants {
     
     /**
-     * 区分测试和正式环境，此参数只在linux环境下有效
+     * 编码
      */
-    public static boolean IS_TEST_ENV = false;
-	
 	public static final String CHARACTER_ENCODING = "UTF-8";
 	
 	/**

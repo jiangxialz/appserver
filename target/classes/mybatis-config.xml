@@ -4,6 +4,9 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<settings>
+		<!-- mybatis 貌似从3.2开始默认采用JAVASSIST代理方式，返回结果中会出现handler属性，
+		 当为空时会导致序列化失败，建议改为CGLIB代理 -->
+		<setting name="proxyFactory" value="CGLIB"/>
 		<setting name="cacheEnabled" value="true" />
 		<setting name="lazyLoadingEnabled" value="true" />
 		<setting name="multipleResultSetsEnabled" value="true" />

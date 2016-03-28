@@ -122,7 +122,7 @@ public class MessageUtils {
 	 * @return 对应多语言信息
 	 */
 	public static String getText(String code){
-		return getProperty(getLocale(OptionUtils.getOption("sysconfig.locale")), code);
+		return getProperty(getLocale(OptionUtils.getStringOption("sysconfig.locale")), code);
 	}
 	
 	/**
@@ -152,7 +152,7 @@ public class MessageUtils {
 		if(mesMaps.containsKey(locale)){
 			return mesMaps.get(locale).getProperties();
 		}
-		String sys = OptionUtils.getOption("sysconfig.locale");// 读取配置的语言
+		String sys = OptionUtils.getStringOption("sysconfig.locale");// 读取配置的语言
 		if(mesMaps.containsKey(sys)){
 			return mesMaps.get(sys).getProperties();
 		}
