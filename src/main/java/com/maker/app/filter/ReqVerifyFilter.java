@@ -18,10 +18,10 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
 
 import com.alibaba.fastjson.JSON;
-import com.maker.app.constant.AppConstants;
 import com.maker.app.constant.IpRequestNumConstant;
 import com.maker.app.exception.AppException;
 import com.maker.app.util.MD5SortUtil;
+import com.maker.app.util.OptionUtils;
 import com.maker.app.util.business.IpRequestNumUtil;
 import com.wonder.constant.SplitConstants;
 import com.wonder.http.HttpReceiveUtil;
@@ -46,8 +46,10 @@ public class ReqVerifyFilter extends HttpServlet implements Filter {
 		HttpServletRequest httpRequest = (HttpServletRequest)request;
 		httpRequest.setCharacterEncoding("UTF-8");
 		
-		// 正式环境进行验证
-		if(!AppConstants.IS_TEST_ENV){
+		/**
+         *  正式环境进行验证
+         */
+        if(!OptionUtils.getBooleanOption("sysconfig.current.env.isTest")){
     		/**
              * IP请求频率验证
              */
